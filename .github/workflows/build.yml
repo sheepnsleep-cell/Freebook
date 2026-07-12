@@ -24,25 +24,30 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
 
+    - name: Generate signing keystore
+      run: |
+        keytool -genkeypair -v \
+          -keystore ${{ github.workspace }}/app/freebook.keystore \
+          -alias freebook \
+          -keyalg RSA -keysize 2048 -validity 10000 \
+          -storepass freebook123 \
+          -keypass freebook123 \
+          -dname "CN=Freebook, OU=Freebook, O=Freebook, L=Unknown, ST=Unknown, C=US"
+
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Build Debug APK
-      run: ./gradlew assembleDebug
-
-    - name: Build Release APK
+    - name: Build Signed APK
       run: ./gradlew assembleRelease
+      env:
+        KEYSTORE_PASSWORD: freebook123
+        KEY_PASSWORD: freebook123
+        KEY_ALIAS: freebook
+        KEYSTORE_FILE: ${{ github.workspace }}/app/freebook.keystore
 
-    - name: Upload Debug APK
+    - name: Upload Signed APK
       uses: actions/upload-artifact@v4
       with:
-        name: Freebook-debug
-        path: app/build/outputs/apk/debug/app-debug.apk
-        retention-days: 30
-
-    - name: Upload Release APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: Freebook-release
-        path: app/build/outputs/apk/release/app-release-unsigned.apk
+        name: Freebook-signed-apk
+        path: app/build/outputs/apk/release/app-release.apk
         retention-days: 30
