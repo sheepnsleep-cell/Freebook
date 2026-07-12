@@ -1,0 +1,4 @@
+-keep class com.freebook.app.** { *; }
+-keep class android.webkit.** { *; }
+-dontwarn okhttp3.**
+-dontwarn okio.**
