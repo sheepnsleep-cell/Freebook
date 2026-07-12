@@ -9,6 +9,7 @@ import android.graphics.Bitmap
 import android.net.http.SslError
 import android.os.Build
 import android.os.Bundle
+import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.view.View
@@ -133,7 +134,6 @@ class MainActivity : AppCompatActivity() {
             javaScriptEnabled = true
             domStorageEnabled = true
             databaseEnabled = true
-            setAppCacheEnabled(true)
             allowFileAccess = false
             allowContentAccess = false
             loadWithOverviewMode = true
@@ -145,7 +145,6 @@ class MainActivity : AppCompatActivity() {
             cacheMode = WebSettings.LOAD_DEFAULT
 
             // Privacy settings
-            thirdPartyCookiesEnabled = false
             setSupportMultipleWindows(false)
             userAgentString = settings.userAgent()
 

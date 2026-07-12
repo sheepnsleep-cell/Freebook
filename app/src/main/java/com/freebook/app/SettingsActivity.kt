@@ -99,7 +99,7 @@ class SettingsActivity : AppCompatActivity() {
                 .setMessage("This will clear all cookies, cache, and stored data. You will need to log in again.")
                 .setPositiveButton("Clear") { _, _ ->
                     CookieManager.getInstance().removeAllCookies(null)
-                    WebStorage.getInstance().deleteAllData(null)
+                    WebStorage.getInstance().deleteAllData()
                     val sharedPrefs = getSharedPreferences("freebook_settings", Context.MODE_PRIVATE)
                     sharedPrefs.edit().clear().apply()
                     settings.isLoggedIn = false
@@ -118,7 +118,7 @@ class SettingsActivity : AppCompatActivity() {
                 .setPositiveButton("Log Out") { _, _ ->
                     settings.logout()
                     CookieManager.getInstance().removeAllCookies(null)
-                    WebStorage.getInstance().deleteAllData(null)
+                    WebStorage.getInstance().deleteAllData()
                     val intent = Intent(this, MainActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
