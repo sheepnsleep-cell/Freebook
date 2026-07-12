@@ -58,12 +58,6 @@
             android:label="@string/settings"
             android:theme="@style/Theme.Freebook" />
 
-        <activity
-            android:name=".LoginActivity"
-            android:exported="false"
-            android:label="Login"
-            android:theme="@style/Theme.Freebook" />
-
         <receiver
             android:name=".NotificationReceiver"
             android:exported="false">
